@@ -316,7 +316,7 @@ to-report calcular-cuadrantes
   let Ti sum mediciones-cuadrantes
   let Ai count patches with [cuadrante = 1]
   let Aci count patches with [vegetacion = 0]
-  let Hi item posicion-final ( item 1 puntos-marea)
+  let Hi item posicion-final ( item 1 puntos-marea) - item 0 (item 1 puntos-marea)
   let Ci length mediciones-cuadrantes
 
   if Ci = 0
@@ -345,7 +345,7 @@ to-report calcular-transectos-berma
 
   let A count patches with [vegetacion = 0]
 
-  let H-mayus item posicion-final ( item 1 puntos-marea)
+  let H-mayus item posicion-final ( item 1 puntos-marea) - item 0 (item 1 puntos-marea)
 
   let w 1
 
@@ -355,7 +355,11 @@ to-report calcular-transectos-berma
 
   let h-minus (((distancia-playa / 2) / velocidad-tortuga-subida) + duracion-cama + duracion-cavar + duracion-poner)
 
-  report ((A * H-mayus) / (2 * w * l)) * (n / h-minus)
+  let t length mediciones-transectos-berma
+
+  ifelse t > 0
+  [report ((A * H-mayus) / (2 * w * t * l)) * (n / h-minus)]
+  [report 0]
 
 
 end
